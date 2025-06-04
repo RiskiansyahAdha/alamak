@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Selamat ya Rheysa Putri</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,700&family=Montserrat:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+<style>
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: #f9f5ef;
+    color: #4a3f45;
+    line-height: 1.58;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  
+  /* Basic CSS to make the link look like a button */
+  .button-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff; /* Example background color */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em; /* Inherit or set a size */
+  }
+
+  .button-link:hover {
+    background-color: #0056b3; /* Darker on hover */
+  }
+
+  /* Welcome Screen */
+  #welcome-screen {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #bd5178 0%, #f4c7d9 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-align: center;
+    padding: 0 1.5rem;
+    z-index: 9999;
+    user-select: none;
+    animation: fadeIn 1.3s ease forwards;
+  }
+  #welcome-screen h1 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 3.25rem;
+    margin-bottom: 2.5rem;
+    letter-spacing: 0.04em;
+    text-shadow: 0 3px 10px rgba(0,0,0,0.25);
+  }
+  #welcome-screen button {
+    background: #9e2c54;
+    border: none;
+    padding: 1.1rem 3.2rem;
+    border-radius: 50px;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: #f9f5ef;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(158,44,84,0.5);
+    transition: background-color 0.35s ease, box-shadow 0.35s ease;
+    letter-spacing: 0.03em;
+  }
+  #welcome-screen button:hover,
+  #welcome-screen button:focus {
+    background: #7a2240;
+    box-shadow: 0 14px 28px rgba(122,34,64,0.7);
+    outline: none;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 4rem 2rem 8rem;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+  }
+
+  header {
+    margin-bottom: 3.8rem;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(24px);
+    animation: slideUpFadeIn 1s ease forwards 0.5s;
+  }
+  header h2 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-weight: 700;
+    font-size: 3.6rem;
+    color: #7a2240;
+    letter-spacing: 0.02em;
+    line-height: 1.12;
+    text-shadow: 0 1px 8px rgba(255, 192, 203, 0.3);
+  }
+  header h3 {
+    font-weight: 500;
+    color: #5e4b55;
+    margin-top: 0.5rem;
+  }
+
+  .text-photo-block {
+    margin-bottom: 5.6rem;
+    opacity: 0;
+    animation: slideUpFadeIn 1s ease forwards;
+    animation-delay: var(--delay, 0s);
+  }
+  .text-photo-block p {
+    font-weight: 500;
+    font-size: 1.17rem;
+    margin-bottom: 1rem;
+    color: #5e4b55;
+  }
+  .text-photo-block img {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border-radius: 14px;
+    box-shadow: 0 12px 28px rgba(186, 109, 126, 0.25);
+    margin-top: 1.2rem;
+    user-select: none;
+    cursor: default;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+    margin-bottom: 4rem;
+    opacity: 0;
+    animation: slideUpFadeIn 1s ease forwards 1.8s;
+  }
+  .gallery-item {
+    text-align: center;
+    max-width: 220px;
+    margin: 0 auto;
+  }
+  .gallery img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(186, 109, 126, 0.2);
+    user-select: none;
+    cursor: default;
+    transition: transform 0.35s ease;
+  }
+  .gallery img:nth-child(odd) {
+    transform: rotate(0deg);
+  }
+  .gallery img:nth-child(2),
+  .gallery img:nth-child(3) {
+    transform: rotate(10deg);
+    object-fit: contain;
+    width: 100%;
+    height: 200px;
+  }
+  .gallery img:nth-child(even):not(:nth-child(2)):not(:nth-child(3)) {
+    transform: rotate(6deg);
+  }
+
+  .game-section {
+    background: #000;
+    color: #fff;
+    padding: 2rem;
+    text-align: center;
+    margin-top: 4rem;
+    border-radius: 12px;
+  }
+  .game-section p {
+    max-width: 500px;
+    margin: 0 auto 1rem;
+  }
+
+  .cups {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+  }
+  .cup {
+    width: 100px;
+    height: 100px;
+    background-image: url(gambar/kucheng.jpeg);
+    background-size: cover;
+    border-radius: 50%;
+    cursor: pointer;
+
+    transition: transform 0.3s ease;
+  }
+  .cup:hover {
+    transform: scale(1.1);
+  }
+
+  .victory {
+    margin-top: 4rem;
+    text-align: center;
+    display: none;
+  }
+  .victory img {
+    width: 80%;
+    max-width: 400px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(186, 109, 126, 0.25);
+    margin-bottom: 1rem;
+  }
+  .victory p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #7a2240;
+  }
+
+  .tab-content {
+    display: none;
+    margin-top: 2rem;
+    text-align: center;
+  }
+  .tab-content button {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: none;
+    background-color: #7a2240;
+    color: white;
+    cursor: pointer;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: #9c7488;
+    opacity: 0.85;
+    margin-bottom: 2rem;
+  }
+
+  /* Firefly styles (yang sudah ada) */
+  .firefly {
+    position: absolute;
+    background: radial-gradient(circle, #fff9c4 0%, #fbc02d 60%, transparent 80%);
+    border-radius: 50%;
+    opacity: 0.8;
+    filter: drop-shadow(0 0 6px #fbc02d);
+    animation: floatFirefly 6s ease-in-out infinite;
+  }
+  .firefly:nth-child(1) {
+    width: 8px;
+    height: 8px;
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+  .firefly:nth-child(2) {
+    width: 6px;
+    height: 6px;
+    top: 40%;
+    left: 30%;
+    animation-delay: 2s;
+  }
+  .firefly:nth-child(3) {
+    width: 7px;
+    height: 7px;
+    top: 60%;
+    left: 50%;
+    animation-delay: 4s;
+  }
+  .firefly:nth-child(4) {
+    width: 5px;
+    height: 5px;
+    top: 80%;
+    left: 70%;
+    animation-delay: 1s;
+  }
+  .firefly:nth-child(5) {
+    width: 8px;
+    height: 8px;
+    top: 35%;
+    left: 80%;
+    animation-delay: 3s;
+  }
+
+  @keyframes floatFirefly {
+    0%, 100% { transform: translate(0, 0); opacity: 0.8; }
+    50% { transform: translate(12px, -18px); opacity: 0.3; }
+  }
+
+  /* --- Tambahan CSS Baru untuk Efek Bunga & Kunang-kunang --- */
+
+  /* Overlay Latar Belakang Bunga & Kunang-kunang */
+  .beautiful-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Removed background image as per user request */
+    background-image: none;
+    background-size: cover;
+    background-position: center;
+    opacity: 0; /* Hide overlay */
+    z-index: 0; /* Pastikan di belakang semua konten dan efek lainnya */
+    pointer-events: none; /* Penting agar tidak menghalangi klik pada konten */
+  }
+
+  /* Kunang-kunang Tambahan (lebih banyak dan variatif) */m
+  .firefly-extra {
+    position: absolute;
+    background: radial-gradient(circle, #ffe082 0%, #ffc107 60%, transparent 80%);
+    border-radius: 50%;
+    opacity: 0.6;
+    filter: drop-shadow(0 0 4px #ffc107);
+    animation: floatFireflyExtra 8s ease-in-out infinite, blinkFireflyExtra 2.5s ease-in-out infinite alternate;
+  }
+
+  /* Posisi dan delay untuk kunang-kunang tambahan */
+  .firefly-extra:nth-child(1) { width: 7px; height: 7px; top: 15%; left: 5%; animation-delay: 0.5s; }
+  .firefly-extra:nth-child(2) { width: 9px; height: 9px; top: 25%; left: 90%; animation-delay: 1.5s; }
+  .firefly-extra:nth-child(3) { width: 6px; height: 6px; top: 55%; left: 15%; animation-delay: 2.2s; }
+  .firefly-extra:nth-child(4) { width: 8px; height: 8px; top: 70%; left: 85%; animation-delay: 3.1s; }
+  .firefly-extra:nth-child(5) { width: 7px; height: 7px; top: 85%; left: 40%; animation-delay: 4s; }
+  .firefly-extra:nth-child(6) { width: 9px; height: 9px; top: 5%; left: 70%; animation-delay: 0.8s; }
+  .firefly-extra:nth-child(7) { width: 6px; height: 6px; top: 95%; left: 50%; animation-delay: 2.8s; }
+  .firefly-extra:nth-child(8) { width: 8px; height: 8px; top: 10%; left: 45%; animation-delay: 5s; }
+  .firefly-extra:nth-child(9) { width: 7px; height: 7px; top: 60%; left: 5%; animation-delay: 1.2s; }
+  .firefly-extra:nth-child(10) { width: 9px; height: 9px; top: 30%; left: 75%; animation-delay: 3.5s; }
+  .firefly-extra:nth-child(11) { width: 6px; height: 6px; top: 80%; left: 25%; animation-delay: 0.7s; }
+  .firefly-extra:nth-child(12) { width: 8px; height: 8px; top: 20%; left: 60%; animation-delay: 4.8s; }
+  .firefly-extra:nth-child(13) { width: 7px; height: 7px; top: 40%; left: 10%; animation-delay: 2.3s; }
+  .firefly-extra:nth-child(14) { width: 9px; height: 9px; top: 70%; left: 35%; animation-delay: 1.9s; }
+  .firefly-extra:nth-child(15) { width: 6px; height: 6px; top: 50%; left: 95%; animation-delay: 4.2s; }
+
+  @keyframes floatFireflyExtra {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(20px, -15px) scale(0.9); }
+    50% { transform: translate(-10px, 20px) scale(1.1); }
+    75% { transform: translate(15px, -5px) scale(1); }
+  }
+
+  @keyframes blinkFireflyExtra {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 0.1; }
+  }
+
+  /* Efek Bunga Melayang */
+  .falling-flower {
+    position: fixed;
+    bottom: 0;
+    background-color: #fce4ec; /* Warna pink lembut */
+    border-radius: 50%;
+    opacity: 1;
+    width: 30px;
+    height: 30px;
+    pointer-events: none;
+    z-index: 10;
+    box-shadow: 0 0 5px rgba(252, 228, 236, 0.7);
+    animation: windWave 4s ease-in-out infinite;
+  }
+
+  .falling-flower:nth-child(1) {
+    left: 20%;
+    animation-delay: 0s;
+  }
+  .falling-flower:nth-child(2) {
+    left: 50%;
+    animation-delay: 1.3s;
+  }
+  .falling-flower:nth-child(3) {
+    left: 80%;
+    animation-delay: 2.6s;
+  }
+
+  @keyframes windWave {
+    0%, 100% {
+      transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+      transform: translate(-10px, -10px) rotate(-10deg);
+    }
+    50% {
+      transform: translate(10px, -20px) rotate(10deg);
+    }
+    75% {
+      transform: translate(-10px, -10px) rotate(-10deg);
+    }
+  }
+
+  /* Animations */
+  @keyframes slideUpFadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+</style>
+</head>
+<body>
+
+<div class="beautiful-overlay"></div>
+
+<div id="welcome-screen" role="dialog" aria-modal="true" aria-labelledby="welcome-title" aria-describedby="welcome-desc">
+  <h1 id="welcome-title">Selamat ya Murid!!!</h1>
+  <button id="enter-btn" aria-label="Buka Ucapan">Buka Ucapan 🎓</button>
+</div>
+
+<audio id="background-music" src="music/sayyestoheaven.mp3" preload="auto" loop></audio>
+
+<div class="container" hidden>
+
+  <header>
+
+    <h1 style="color: gold;">selamat atas kelulusannya!!</h1>
+    <h2>Rheysa Putri</h2>
+    <h3>dari your sensei yang tersigma</h3>
+  </header>
+
+  <div class="text-photo-block" style="--delay: 0.6s;">
+    <p>Alamak die dah beranjak dewasa!!,Takutnyee... .</p>
+    
+  </div>
+
+  <div class="gallery">
+    <div class="gallery-item">
+      <img src="gambar/kenangan1.jpg" alt="Buku dan alat tulis" style="transform: rotate(12deg); object-fit: contain; width: 150%; height: 180px;" />
+      <p>Ya aku ga punya apa apa foto sama mu ,jadi ya aku cuman ada memory waktu kita main game , ETC :vvv</p>
+    </div>
+    <div class="gallery-item">
+      <img src="gambar/roblox.jpg" alt="Teman belajar" style="transform: rotate(-8deg); object-fit: contain; width: 140%; height: 190px;" />
+      <p>kadang mabar game roblox(gw nub banget jir)</p>
+    </div>
+    <div class="gallery-item">
+      <img src="gambar/hsr.jpeg" alt="Buku dan alat tulis" style="transform: rotate(12deg); object-fit: contain; width: 150%; height: 180px;" />
+      <p>Terkadang Juga ko main game HSR Lah,Reverse Lah ,aku ya kurang Tau si sebenarnya ,Tapi aku mah berusaha Tau aja (terkadang Sok Tau WOk)</p>
+    </div>
+  </div>
+
+  <section class="game-section" aria-label="Permainan menemukan cangkir">
+    <p>Kamu harus memilih 1 dari 7 FireFly. Salah satunya berisi kejutan! Coba pilih yaaa!</p>
+    <div class="cups" role="list" aria-label="Daftar cangkir pilihan"></div>
+  </section>
+
+  <section class="victory" id="victory-section" aria-live="polite">
+    <img src="gambar/kucheng2.jpeg" alt="Kucing lucu sebagai hadiah kemenangan" id="victory-cat" tabindex="0" role="button" aria-label="Kucing lucu, klik untuk lanjut" />
+    <p>YEayyy Mantapp! 🎉 Klik kucing di atas untuk lihat ucapan rahasia hehe.</p>
+  </section>
+
+  <section class="tab-content" id="tab-content" aria-hidden="true">
+    <p>Makasih ya waktu itu udah bantu aku lebih PD ngomong sama Cewe ,dulu aku itu gak ada apa apa sama cewe,tapi ya ko udah bantu aku sampai jadi sejauh ini mengambil keputusan dengan benar,Aku nggak tau kenapa bisa kenal sm ko ,Tapi ya Aku beruntung bisa jumpa adkel kayak ko , Dan untuk sekarang ko harus lebih serius Dalam menuntut Ilmu karena Udah memasuki Jenjang SMA....,Maaf ya aku Ga bisa Hadir ke Perpisahan mu,maaf juga ga pernah aku beliin eskrim , Dah itu aja dah .Selamat Dah intinya.</p>
+    <p>Semoga selalu sukses dan bahagia!</p>
+    <button id="close-tab-btn" aria-label="Tutup ucapan rahasia">Tutup</button>
+    <h1><a href="indexflower.html" class="button-link">Bunga :D</a></h1>
+  </section>
+
+
+  <footer>
+    <p>
+    <p>© 2025. Dibuat oleh your sensei Riskiansyah adha.</p>
+  </footer>
+
+</div>
+
+<div class="firefly"></div>
+<div class="firefly"></div>
+<div class="firefly"></div>
+<div class="firefly"></div>
+<div class="firefly"></div>
+
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+<div class="firefly-extra"></div>
+
+<div class="falling-flower"></div>
+<div class="falling-flower"></div>
+<div class="falling-flower"></div>
+<div class="falling-flower"></div>
+<div class="falling-flower"></div>
+<div class="falling-flower"></div>
+<div class="falling-flower"></div>
+<div class="falling-flower"></div>
+
+
+<script>
+  // DOM Elements
+  const welcomeScreen = document.getElementById('welcome-screen');
+  const enterBtn = document.getElementById('enter-btn');
+  const container = document.querySelector('.container');
+  const music = document.getElementById('background-music');
+  const cupsContainer = document.querySelector('.cups');
+  const victorySection = document.getElementById('victory-section');
+  const victoryCat = document.getElementById('victory-cat');
+  const tabContent = document.getElementById('tab-content');
+  const closeTabBtn = document.getElementById('close-tab-btn');
+
+  // Start Experience
+  enterBtn.addEventListener('click', () => {
+    welcomeScreen.style.display = 'none';
+    container.hidden = false;
+    music.play().catch(() => {}); // play music if allowed
+  });
+
+  // Shuffle Function
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  }
+
+  // Create cups game
+  const cupElements = [];
+  const correctIndex = Math.floor(Math.random() * 7); // one correct cup out of 10
+
+  // Menambahkan flag untuk mencegah klik berulang setelah menemukan yang benar
+  let isCorrectCupFound = false;
+
+  for (let i = 0; i < 7; i++) {
+    const cup = document.createElement('div');
+    cup.className = 'cup';
+    cup.setAttribute('role', 'listitem');
+    cup.dataset.correct = i === correctIndex ? 'true' : 'false';
+    cup.tabIndex = 0;
+    cup.setAttribute('aria-label', `Cangkir nomor ${i + 1}`);
+
+    cup.addEventListener('click', () => {
+      if (isCorrectCupFound) return; // Jika sudah ditemukan, jangan proses klik lagi
+
+      if (cup.dataset.correct === 'true') {
+        victorySection.style.display = 'block';
+        victorySection.scrollIntoView({ behavior: 'smooth' });
+        tabContent.style.display = 'none';
+        isCorrectCupFound = true; // Set flag menjadi true
+        // Nonaktifkan semua cangkir setelah ditemukan yang benar
+        cupElements.forEach(c => c.style.pointerEvents = 'none');
+      } else {
+        showNotification('Salah, coba lagi! 😺');
+      }
+    });
+    cupElements.push(cup);
+  }
+  shuffle(cupElements).forEach(cup => cupsContainer.appendChild(cup));
+
+  // Show notification message
+  function showNotification(message) {
+    const notif = document.createElement('div');
+    notif.textContent = message;
+    notif.style.position = 'fixed';
+    notif.style.bottom = '20px';
+    notif.style.left = '50%';
+    notif.style.transform = 'translateX(-50%)';
+    notif.style.background = '#ffdde0';
+    notif.style.color = '#7a2240';
+    notif.style.padding = '1rem 2rem';
+    notif.style.borderRadius = '30px';
+    notif.style.boxShadow = '0 4px 10px rgba(0,0,0,0.2)';
+    notif.style.zIndex = '9999';
+    notif.style.fontWeight = 'bold';
+    document.body.appendChild(notif);
+    setTimeout(() => notif.remove(), 2000);
+  }
+
+  // Victory cat click - show tab content
+  victoryCat.addEventListener('click', () => {
+    victorySection.style.display = 'none';
+    tabContent.style.display = 'block';
+    tabContent.setAttribute('aria-hidden', 'false');
+    tabContent.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // Close tab content
+  closeTabBtn.addEventListener('click', () => {
+    tabContent.style.display = 'none';
+    tabContent.setAttribute('aria-hidden', 'true');
+    victorySection.style.display = 'block';
+    victorySection.scrollIntoView({ behavior: 'smooth' });
+  });
+</script>
+  <!-- Flower animation container inserted near bottom -->
+  <div id="flower-animation-container" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 200px; background-color: black; display: flex; justify-content: center; align-items: center; z-index: 10000; visibility: hidden; opacity: 0; transition: opacity 0.5s ease;">
+    <div class="night"></div>
+    <div class="flowers">
+      <div class="flower flower--1">
+        <div class="flower__leafs flower__leafs--1">
+          <div class="flower__leaf flower__leaf--1"></div>
+          <div class="flower__leaf flower__leaf--2"></div>
+          <div class="flower__leaf flower__leaf--3"></div>
+          <div class="flower__leaf flower__leaf--4"></div>
+          <div class="flower__white-circle"></div>
+
+          <div class="flower__light flower__light--1"></div>
+          <div class="flower__light flower__light--2"></div>
+          <div class="flower__light flower__light--3"></div>
+          <div class="flower__light flower__light--4"></div>
+          <div class="flower__light flower__light--5"></div>
+          <div class="flower__light flower__light--6"></div>
+          <div class="flower__light flower__light--7"></div>
+          <div class="flower__light flower__light--8"></div>
+
+        </div>
+        <div class="flower__line">
+          <div class="flower__line__leaf flower__line__leaf--1"></div>
+          <div class="flower__line__leaf flower__line__leaf--2"></div>
+          <div class="flower__line__leaf flower__line__leaf--3"></div>
+          <div class="flower__line__leaf flower__line__leaf--4"></div>
+          <div class="flower__line__leaf flower__line__leaf--5"></div>
+          <div class="flower__line__leaf flower__line__leaf--6"></div>
+        </div>
+      </div>
+
+      <div class="flower flower--2">
+        <div class="flower__leafs flower__leafs--2">
+          <div class="flower__leaf flower__leaf--1"></div>
+          <div class="flower__leaf flower__leaf--2"></div>
+          <div class="flower__leaf flower__leaf--3"></div>
+          <div class="flower__leaf flower__leaf--4"></div>
+          <div class="flower__white-circle"></div>
+
+          <div class="flower__light flower__light--1"></div>
+          <div class="flower__light flower__light--2"></div>
+          <div class="flower__light flower__light--3"></div>
+          <div class="flower__light flower__light--4"></div>
+          <div class="flower__light flower__light--5"></div>
+          <div class="flower__light flower__light--6"></div>
+          <div class="flower__light flower__light--7"></div>
+          <div class="flower__light flower__light--8"></div>
+
+        </div>
+        <div class="flower__line">
+          <div class="flower__line__leaf flower__line__leaf--1"></div>
+          <div class="flower__line__leaf flower__line__leaf--2"></div>
+          <div class="flower__line__leaf flower__line__leaf--3"></div>
+          <div class="flower__line__leaf flower__line__leaf--4"></div>
+        </div>
+      </div>
+
+      <div class="flower flower--3">
+        <div class="flower__leafs flower__leafs--3">
+          <div class="flower__leaf flower__leaf--1"></div>
+          <div class="flower__leaf flower__leaf--2"></div>
+          <div class="flower__leaf flower__leaf--3"></div>
+          <div class="flower__leaf flower__leaf--4"></div>
+          <div class="flower__white-circle"></div>
+
+          <div class="flower__light flower__light--1"></div>
+          <div class="flower__light flower__light--2"></div>
+          <div class="flower__light flower__light--3"></div>
+          <div class="flower__light flower__light--4"></div>
+          <div class="flower__light flower__light--5"></div>
+          <div class="flower__light flower__light--6"></div>
+          <div class="flower__light flower__light--7"></div>
+          <div class="flower__light flower__light--8"></div>
+
+        </div>
+        <div class="flower__line">
+          <div class="flower__line__leaf flower__line__leaf--1"></div>
+          <div class="flower__line__leaf flower__line__leaf--2"></div>
+          <div class="flower__line__leaf flower__line__leaf--3"></div>
+          <div class="flower__line__leaf flower__line__leaf--4"></div>
+        </div>
+      </div>
+
+      <div class="grow-ans" style="--d:1.2s">
+        <div class="flower__g-long">
+          <div class="flower__g-long__top"></div>
+          <div class="flower__g-long__bottom"></div>
+        </div>
+      </div>
+
+      <div class="growing-grass">
+        <div class="flower__grass flower__grass--1">
+          <div class="flower__grass--top"></div>
+          <div class="flower__grass--bottom"></div>
+          <div class="flower__grass__leaf flower__grass__leaf--1"></div>
+          <div class="flower__grass__leaf flower__grass__leaf--2"></div>
+          <div class="flower__grass__leaf flower__grass__leaf--3"></div>
+          <div class="flower__grass__leaf flower__grass__leaf--4"></div>
+          <div class="flower__grass__leaf flower__grass__leaf--5"></div>
+          <div class="flower__grass__leaf flower__grass__leaf--6"></div>
+          <div class="flower__grass__leaf flower__grass__leaf--7"></div>
+          <div class="flower__grass__leaf flower__grass__leaf--8"></div>
+          <div class="flower__grass__overlay"></div>
+        </div>
+      </div>
+
+      <div class="growing-grass">
+        <div class="flower__grass flower__grass--2">
+          <div class="flower__grass--top"></div>
+          <div class="flower__grass--bottom"></div>
+          <div class="flower__grass__leaf flower__grass__leaf--1"></div>
+          <div class="flower__grass__leaf flower__grass__leaf--2"></div>
+          <div class="flower__grass__leaf flower__grass__leaf--3"></div>
+          <div class="flower__grass__leaf flower__grass__leaf--4"></div>
+          <div class="flower__grass__leaf flower__grass__leaf--5"></div>
+          <div class="flower__grass__leaf flower__grass__leaf--6"></div>
+          <div class="flower__grass__leaf flower__grass__leaf--7"></div>
+          <div class="flower__grass__leaf flower__grass__leaf--8"></div>
+          <div class="flower__grass__overlay"></div>
+        </div>
+      </div>
+
+      <div class="grow-ans" style="--d:2.4s">
+        <div class="flower__g-right flower__g-right--1">
+          <div class="leaf"></div>
+        </div>
+      </div>
+
+      <div class="grow-ans" style="--d:2.8s">
+        <div class="flower__g-right flower__g-right--2">
+          <div class="leaf"></div>
+        </div>
+      </div>
+
+      <div class="grow-ans" style="--d:2.8s">
+        <div class="flower__g-front">
+          <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--1">
+            <div class="flower__g-front__leaf"></div>
+          </div>
+          <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--2">
+            <div class="flower__g-front__leaf"></div>
+          </div>
+          <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--3">
+            <div class="flower__g-front__leaf"></div>
+          </div>
+          <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--4">
+            <div class="flower__g-front__leaf"></div>
+          </div>
+          <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--5">
+            <div class="flower__g-front__leaf"></div>
+          </div>
+          <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--6">
+            <div class="flower__g-front__leaf"></div>
+          </div>
+          <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--7">
+            <div class="flower__g-front__leaf"></div>
+          </div>
+          <div class="flower__g-front__leaf-wrapper flower__g-front__leaf-wrapper--8">
+            <div class="flower__g-front__leaf"></div>
+          </div>
+          <div class="flower__g-front__line"></div>
+        </div>
+      </div>
+
+      <div class="long-g long-g--0">
+        <div class="grow-ans" style="--d:3s">
+          <div class="leaf leaf--0"></div>
+        </div>
+        <div class="grow-ans" style="--d:2.2s">
+          <div class="leaf leaf--1"></div>
+        </div>
+        <div class="grow-ans" style="--d:3.4s">
+          <div class="leaf leaf--2"></div>
+        </div>
+        <div class="grow-ans" style="--d:3.6s">
+          <div class="leaf leaf--3"></div>
+        </div>
+      </div>
+
+      <div class="long-g long-g--1">
+        <div class="grow-ans" style="--d:3.6s">
+          <div class="leaf leaf--0"></div>
+        </div>
+        <div class="grow-ans" style="--d:3.8s">
+          <div class="leaf leaf--1"></div>
+        </div>
+        <div class="grow-ans" style="--d:4s">
+          <div class="leaf leaf--2"></div>
+        </div>
+        <div class="grow-ans" style="--d:4.2s">
+          <div class="leaf leaf--3"></div>
+        </div>
+      </div>
+
+      <div class="long-g long-g--2">
+        <div class="grow-ans" style="--d:4s">
+          <div class="leaf leaf--0"></div>
+        </div>
+        <div class="grow-ans" style="--d:4.2s">
+          <div class="leaf leaf--1"></div>
+        </div>
+        <div class="grow-ans" style="--d:4.4s">
+          <div class="leaf leaf--2"></div>
+        </div>
+        <div class="grow-ans" style="--d:4.6s">
+          <div class="leaf leaf--3"></div>
+        </div>
+      </div>
+
+      <div class="long-g long-g--3">
+        <div class="grow-ans" style="--d:4s">
+          <div class="leaf leaf--0"></div>
+        </div>
+        <div class="grow-ans" style="--d:4.2s">
+          <div class="leaf leaf--1"></div>
+        </div>
+        <div class="grow-ans" style="--d:3s">
+          <div class="leaf leaf--2"></div>
+        </div>
+        <div class="grow-ans" style="--d:3.6s">
+          <div class="leaf leaf--3"></div>
+        </div>
+      </div>
+
+      <div class="long-g long-g--4">
+        <div class="grow-ans" style="--d:4s">
+          <div class="leaf leaf--0"></div>
+        </div>
+        <div class="grow-ans" style="--d:4.2s">
+          <div class="leaf leaf--1"></div>
+        </div>
+        <div class="grow-ans" style="--d:3s">
+          <div class="leaf leaf--2"></div>
+        </div>
+        <div class="grow-ans" style="--d:3.6s">
+          <div class="leaf leaf--3"></div>
+        </div>
+      </div>
+
+      <div class="long-g long-g--5">
+        <div class="grow-ans" style="--d:4s">
+          <div class="leaf leaf--0"></div>
+        </div>
+        <div class="grow-ans" style="--d:4.2s">
+          <div class="leaf leaf--1"></div>
+        </div>
+        <div class="grow-ans" style="--d:3s">
+          <div class="leaf leaf--2"></div>
+        </div>
+        <div class="grow-ans" style="--d:3.6s">
+          <div class="leaf leaf--3"></div>
+        </div>
+      </div>
+
+      <div class="long-g long-g--6">
+        <div class="grow-ans" style="--d:4.2s">
+          <div class="leaf leaf--0"></div>
+        </div>
+        <div class="grow-ans" style="--d:4.4s">
+          <div class="leaf leaf--1"></div>
+        </div>
+        <div class="grow-ans" style="--d:4.6s">
+          <div class="leaf leaf--2"></div>
+        </div>
+        <div class="grow-ans" style="--d:4.8s">
+          <div class="leaf leaf--3"></div>
+        </div>
+      </div>
+
+      <div class="long-g long-g--7">
+        <div class="grow-ans" style="--d:3s">
+          <div class="leaf leaf--0"></div>
+        </div>
+        <div class="grow-ans" style="--d:3.2s">
+          <div class="leaf leaf--1"></div>
+        </div>
+        <div class="grow-ans" style="--d:3.5s">
+          <div class="leaf leaf--2"></div>
+        </div>
+        <div class="grow-ans" style="--d:3.6s">
+          <div class="leaf leaf--3"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    onload = () => {
+      const c = setTimeout(() => {
+        document.body.classList.remove("not-loaded");
+        clearTimeout(c);
+      }, 1000);
+    };
+  </script>
